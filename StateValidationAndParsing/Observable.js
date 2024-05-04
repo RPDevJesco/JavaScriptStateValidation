@@ -1,4 +1,4 @@
-import {integerParser, stringParser, dateParser, floatParser, booleanParser, jsonParser, arrayParser, trimParser, dateTimeParser, currencyParser} from "./Parsers.js";
+import {integerParser, positiveIntegerParser, stringParser, dateParser, floatParser, booleanParser, jsonParser, arrayParser, trimParser, dateTimeParser, currencyParser} from "./Parsers.js";
 
 export class Observable {
     constructor(config = {}) {
@@ -35,6 +35,8 @@ export class Observable {
         const parserMapping = {
             nonEmptyNameValidator: stringParser,
             ageRangeValidator: integerParser,
+            positiveNumberValidator : positiveIntegerParser,
+            dateFormatValidator: dateParser,
             // Add more mappings as necessary
         };
 

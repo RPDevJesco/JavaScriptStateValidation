@@ -4,6 +4,13 @@ export const integerParser = (input) => {
     return parsed;
 };
 
+export const positiveIntegerParser = (input) => {
+    const parsed = parseInt(input, 10);
+    if (isNaN(parsed)) throw new Error("Invalid integer");
+    if (parsed <= 0) throw new Error("Number must be positive");
+    return parsed;
+};
+
 export const dateParser = (input) => {
     const parsed = new Date(input);
     if (isNaN(parsed.getTime())) throw new Error("Invalid date");

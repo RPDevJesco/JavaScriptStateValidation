@@ -6,13 +6,13 @@ import { nonEmptyNameValidator, ageRangeValidator, emailValidator, positiveNumbe
     startsWithValidator } from '../StateValidation/Validators.js';
 
 const myObject = new Observable({
-    initialState: { name: "John", age: 30, date: "2021-01-01" },
-    validators: [nonEmptyNameValidator, ageRangeValidator, dateFormatValidator],
+    initialState: { name: "John", age: 30, date: '2024-12-31' },
+    validators: [nonEmptyNameValidator, ageRangeValidator, positiveNumberValidator('age'), dateFormatValidator('YYYY-MM-DD')],
     subscribers: [
         newState => console.log("Subscriber: State updated to:", newState)
     ]
 });
 
-myObject.setState({ name: "Jane" }).setState({ age: 13 }).setState({ date: "20333-01-01" });
+myObject.setState({ name: "Jane" }).setState({ age: 13 }).setState({ date: '2023-12-31' });
 
 console.log(myObject);
