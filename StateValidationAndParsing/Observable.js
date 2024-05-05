@@ -21,6 +21,15 @@ export class Observable {
         subscribers.forEach(subscriber => this.subscribe(subscriber));
     }
 
+    updateUI(document, elementsToUpdate) {
+        elementsToUpdate.forEach(({ id, property }) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = this.state[property];
+            }
+        });
+    }
+
     subscribe(callback) {
         this.subscribers.push(callback);
     }
@@ -46,7 +55,7 @@ export class Observable {
         }
     }
 
-    setState(newState) {
+    setState(newState, document = null, elementsToUpdate = []) {
         Object.keys(newState).forEach(key => {
             if (this.parsers[key]) {
                 try {
@@ -64,6 +73,9 @@ export class Observable {
             this.onSuccess(this.state);
         } else {
             this.onFailure(validationResult);
+        }
+        if (document && elementsToUpdate.length > 0) {
+            this.updateUI(document, elementsToUpdate);
         }
         return this; // Allow chaining
     }

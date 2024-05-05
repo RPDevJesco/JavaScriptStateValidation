@@ -5,29 +5,24 @@ import { nonEmptyNameValidator, ageRangeValidator, emailValidator, positiveNumbe
     regexValidator, maxItemsValidator, nonNegativeValidator, matchOtherFieldValidator, isBooleanValidator,
     startsWithValidator } from '../StateValidation/Validators.js';
 
-function updateUI(state) {
-    document.getElementById('name').textContent = state.name;
-    document.getElementById('age').textContent = state.age;
-    document.getElementById('date').textContent = state.date;
-}
-
 const myObject = new Observable({
     initialState: { name: "John", age: 30, date: '2024-12-31' },
     validators: [nonEmptyNameValidator, ageRangeValidator, positiveNumberValidator('age'), dateFormatValidator('YYYY-MM-DD')],
     subscribers: [
         newState => {
             console.log("Subscriber: State updated to:", newState);
-            updateUI(newState); // Update the UI whenever the state changes
         }
     ]
 });
 
-myObject.setState({ name: "Jane" }).setState({ age: 13 }).setState({ date: '2023-12-31' });
+// Define the elements to update as part of the state change
+const elementsToUpdate = [
+    { id: 'name', property: 'name' },
+    { id: 'age', property: 'age' },
+    { id: 'date', property: 'date' }
+];
 
-// Initial UI update
-updateUI(myObject.getState());
-
-// Expose the myObject for debugging purposes
-window.myObject = myObject;
-
-export { updateUI }; // Export the updateUI function
+// Example of setting state and updating UI
+myObject.setState({ name: "Jane" }, document, elementsToUpdate)
+    .setState({ age: 13 }, document, elementsToUpdate)
+    .setState({ date: '2023-12-31' }, document, elementsToUpdate);
