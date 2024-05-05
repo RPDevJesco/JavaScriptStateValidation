@@ -81,4 +81,8 @@ export class Observable {
     notify() {
         this.subscribers.forEach(callback => callback(this.state));
     }
+
+    getState() {
+        return this.state;
+    }
 }
